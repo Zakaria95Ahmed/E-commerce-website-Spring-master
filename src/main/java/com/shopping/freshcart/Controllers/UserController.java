@@ -1,5 +1,7 @@
 package com.shopping.freshcart.Controllers;
 
+import com.shopping.freshcart.Security.UserAccount.Model.DTO.UserDTO;
+import com.shopping.freshcart.Security.UserAccount.Services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

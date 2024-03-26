@@ -32,17 +32,17 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     ////-------Best-Practice------////
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userRepository.findByEmail(email)
                 .map(user -> {
                     userRepository.save(user);
                     UserData userData = new UserData(user);
-                    log.info("The user (" + username + ") found");
+                    log.info("The user (" + email + ") found");
                     return userData;
                 })
                 .orElseThrow(() -> {
-                    log.error("No user found by username: " + username);
-                    return new UsernameNotFoundException("No user found by username: " + username);
+                    log.error("No user found by email: " + email);
+                    return new UsernameNotFoundException("No user found by email: " + email);
                 });
     }
 

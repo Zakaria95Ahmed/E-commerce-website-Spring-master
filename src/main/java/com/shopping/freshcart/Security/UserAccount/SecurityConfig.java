@@ -1,19 +1,17 @@
 package com.shopping.freshcart.Security.UserAccount;
 
 import com.shopping.freshcart.Security.JWT.Authentication;
-import com.shopping.freshcart.Security.JWT.Authorization;
+import com.shopping.freshcart.Security.JWT.JwtAuthorizationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -34,7 +32,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
-    private final Authorization authorization;
+    private final JwtAuthorizationFilter authorization;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private static final String[] PUBLIC_MATCHERS = {
@@ -59,7 +57,7 @@ public class SecurityConfig {
                                 authenticationManager(http.getSharedObject
                                         (AuthenticationConfiguration.class)), authorization),
                         UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new Authorization(authorization),
+                .addFilterBefore(new JwtAuthorizationFilter (authorization),
                         UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
@@ -83,31 +81,32 @@ public class SecurityConfig {
         return source;
     }
 
+
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
 //    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-//        return authConfig.getAuthenticationManager();
+//    public AuthenticationManager authenticationManager() {
+//        return authentication -> {
+//            String username = authentication.getName();
+//            String password = authentication.getCredentials().toString();
+//            UserDetails user = userDetailsService.loadUserByUsername(username);
+//
+//            if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
+//                return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
+//            } else {
+//                throw new BadCredentialsException("Invalid username or password");
+//            }
+//        };
 //    }
 
     @Bean
-    public AuthenticationManager authenticationManager() {
-        return authentication -> {
-            String username = authentication.getName();
-            String password = authentication.getCredentials().toString();
-            UserDetails user = userDetailsService.loadUserByUsername(username);
-
-            if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
-                return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
-            } else {
-                throw new BadCredentialsException("Invalid username or password");
-            }
-        };
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
 
 
 
