@@ -2,6 +2,7 @@ package com.shopping.freshcart.Models.Mappers;
 
 import com.shopping.freshcart.Models.DTOs.CartDTO;
 import com.shopping.freshcart.Models.Entity.Cart;
+import com.shopping.freshcart.Security.UserAccount.Model.Mapper.UserMapper;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

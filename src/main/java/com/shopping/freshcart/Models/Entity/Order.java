@@ -1,7 +1,8 @@
 package com.shopping.freshcart.Models.Entity;
 
 
-import com.shopping.freshcart.Security.UserAccount.User;
+
+import com.shopping.freshcart.Security.UserAccount.Model.Entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

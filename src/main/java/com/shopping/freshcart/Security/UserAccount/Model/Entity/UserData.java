@@ -1,12 +1,16 @@
 package com.shopping.freshcart.Security.UserAccount.Model.Entity;
 
-import com.shopping.freshcart.Security.UserAccount.Model.Entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import java.util.stream.Collectors;
 
 import java.io.Serial;
 import java.util.Collection;
+
+import static java.util.Arrays.stream;
+
+
 
 public class UserData implements UserDetails {
 
@@ -19,16 +23,16 @@ public class UserData implements UserDetails {
         this.user = user;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Return the user's authorities/roles
-        // Implement this method based on your application's requirements
-        return null;
-    }
 //    @Override
 //    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return stream(this.user.getAuthorities()).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+//        // Return the user's authorities/roles
+//        // Implement this method based on your application's requirements
+//        return null;
 //    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return stream(this.user.getAuthorities()).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+    }
 
     @Override
     public String getPassword() {

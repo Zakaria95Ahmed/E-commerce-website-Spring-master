@@ -2,6 +2,7 @@ package com.shopping.freshcart.Models.Mappers;
 
 import com.shopping.freshcart.Models.DTOs.OrderDTO;
 import com.shopping.freshcart.Models.Entity.Order;
+import com.shopping.freshcart.Security.UserAccount.Model.Mapper.UserMapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 import java.util.List;

@@ -2,6 +2,7 @@ package com.shopping.freshcart.Security.UserAccount;
 
 import com.shopping.freshcart.Security.JWT.Authentication;
 import com.shopping.freshcart.Security.JWT.JwtAuthorizationFilter;
+import com.shopping.freshcart.Security.JWT.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,9 +33,9 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
-    private final JwtAuthorizationFilter authorization;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
+//    private final JwtAuthorizationFilter authorization;
+    private final JwtProvider jwtProvider;
+    private final Authentication authenticationEntryPoint;
     private static final String[] PUBLIC_MATCHERS = {
             "/user/login",
             "/user/home",
@@ -53,15 +54,12 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers(PUBLIC_MATCHERS).permitAll()
                                 .anyRequest().authenticated())
-                .addFilterBefore(new Authentication(
-                                authenticationManager(http.getSharedObject
-                                        (AuthenticationConfiguration.class)), authorization),
-                        UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JwtAuthorizationFilter (authorization),
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
+                .addFilter(new UsernamePasswordAuthenticationFilter(authenticationManager(http.getSharedObject(AuthenticationConfiguration.class))))
+                .addFilterBefore(new JwtAuthorizationFilter(jwtProvider, userDetailsService),
                         UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
-
 
     @Bean
     protected CorsConfigurationSource corsConfigurationSource() {
@@ -82,33 +80,14 @@ public class SecurityConfig {
     }
 
 
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
-//    @Bean
-//    public AuthenticationManager authenticationManager() {
-//        return authentication -> {
-//            String username = authentication.getName();
-//            String password = authentication.getCredentials().toString();
-//            UserDetails user = userDetailsService.loadUserByUsername(username);
-//
-//            if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
-//                return new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
-//            } else {
-//                throw new BadCredentialsException("Invalid username or password");
-//            }
-//        };
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
-
-
 
 }
