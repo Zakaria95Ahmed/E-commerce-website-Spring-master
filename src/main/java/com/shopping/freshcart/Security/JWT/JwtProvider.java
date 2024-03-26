@@ -59,6 +59,14 @@ public class JwtProvider {
                 .getBody();
         return claims.getSubject();
     }
+    public String getUserEmailFromJWT(String token) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims.getSubject();
+    }
 
     public boolean validateToken(String authToken) {
         try {
