@@ -9,8 +9,7 @@ import lombok.*;
 public class CategoryDTO {
     private Long id;
     private String name;
-    private String slug;
-    private String image;
-    // Other fields if needed
-}
+    private String description;
 
+    // Constructors, getters, and setters
+}

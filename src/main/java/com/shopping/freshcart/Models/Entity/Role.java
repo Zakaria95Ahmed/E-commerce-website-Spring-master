@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
-public enum Role {
-    ROLE_USER,
-    ROLE_ADMIN
-}
+//@Getter
+//@NoArgsConstructor
+//@AllArgsConstructor
+//public enum Role {
+//    ROLE_USER,
+//    ROLE_ADMIN
+//}

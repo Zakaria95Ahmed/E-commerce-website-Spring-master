@@ -4,7 +4,7 @@ import com.shopping.freshcart.Models.DTOs.CartItemDTO;
 import com.shopping.freshcart.Models.Entity.CartItem;
 import com.shopping.freshcart.Models.Mappers.CartItemMapper;
 import com.shopping.freshcart.Repositories.CartItemRepository;
-import com.shopping.freshcart.Services.CartItemService;
+import com.shopping.freshcart.Services.Interfaces.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +49,7 @@ public class CartItemServiceImpl implements CartItemService {
     public CartItemDTO updateCartItem(Long id, CartItemDTO cartItemDTO) {
         CartItem existingCartItem = cartItemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not-found CartItem id: "+ id));
-        cartItemMapper.updateEntityFromDTO(cartItemDTO, existingCartItem);
+        cartItemMapper.updateCartItemFromDTO(cartItemDTO, existingCartItem);
         CartItem updatedCartItem = cartItemRepository.save(existingCartItem);
         return cartItemMapper.toDTO(updatedCartItem);
     }

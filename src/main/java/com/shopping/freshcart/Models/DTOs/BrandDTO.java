@@ -9,7 +9,7 @@ import lombok.*;
 public class BrandDTO {
     private Long id;
     private String name;
-    private String slug;
-    private String image;
-    // Other fields if needed
+    private String logo;
+
+    // Constructors, getters, and setters
 }

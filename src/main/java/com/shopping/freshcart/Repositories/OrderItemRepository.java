@@ -8,7 +8,8 @@ import java.util.List;
 
 @Repository
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
-    // Custom query methods if needed
+    // Custom additional query methods if needed
     List<OrderItem> findByOrderId(Long orderId);
 
 }
+

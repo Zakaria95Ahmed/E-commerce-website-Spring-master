@@ -1,7 +1,7 @@
 package com.shopping.freshcart.Controllers;
 
 import com.shopping.freshcart.Models.DTOs.ProductDTO;
-import com.shopping.freshcart.Services.ProductService;
+import com.shopping.freshcart.Services.Interfaces.ProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
+
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -46,4 +47,5 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
 }

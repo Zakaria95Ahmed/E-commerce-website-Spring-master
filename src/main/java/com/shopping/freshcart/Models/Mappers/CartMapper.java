@@ -10,19 +10,13 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public interface CartMapper {
-    CartMapper INSTANCE = Mappers.getMapper(CartMapper.class);
 
+@Mapper(componentModel = "spring", uses = {UserMapper.class, CartItemMapper.class})
+public interface CartMapper {
     CartDTO toDTO(Cart cart);
     Cart toEntity(CartDTO cartDTO);
-
     List<CartDTO> toDTOList(List<Cart> carts);
     List<Cart> toEntityList(List<CartDTO> cartDTOs);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEntityFromDTO(CartDTO cartDTO, @MappingTarget Cart cart);
-
-
-
+    void updateCartFromDTO(CartDTO cartDTO, @MappingTarget Cart cart);
 }

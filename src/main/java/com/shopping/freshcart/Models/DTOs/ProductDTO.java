@@ -2,19 +2,20 @@ package com.shopping.freshcart.Models.DTOs;
 
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDTO {
     private Long id;
-    private String title;
+    private String name;
     private String description;
-    private Double price;
+    private BigDecimal price;
+    private String image;
     private Long categoryId;
     private Long brandId;
-    private Double priceAfterDiscount;
-    private Double ratingsAverage;
-    private Integer ratingsQuantity;
-    // Other fields if needed
+
+    // Constructors, getters, and setters
 }

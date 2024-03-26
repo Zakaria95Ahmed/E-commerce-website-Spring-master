@@ -1,6 +1,6 @@
-package com.shopping.freshcart.Services;
+package com.shopping.freshcart.Security.UserAccount.Services;
 
-import com.shopping.freshcart.Models.DTOs.UserDTO;
+import com.shopping.freshcart.Security.UserAccount.Model.DTO.UserDTO;
 
 import java.util.List;
 

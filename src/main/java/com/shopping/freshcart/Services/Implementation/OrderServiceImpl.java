@@ -4,7 +4,7 @@ import com.shopping.freshcart.Models.DTOs.OrderDTO;
 import com.shopping.freshcart.Models.Entity.Order;
 import com.shopping.freshcart.Models.Mappers.OrderMapper;
 import com.shopping.freshcart.Repositories.OrderRepository;
-import com.shopping.freshcart.Services.OrderService;
+import com.shopping.freshcart.Services.Interfaces.OrderService;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO updateOrder(Long id, OrderDTO orderDTO) {
         Order existingOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not-found Order id: "+ id));
-        orderMapper.updateEntityFromDTO(orderDTO, existingOrder);
+        orderMapper.updateOrderFromDTO(orderDTO, existingOrder);
         Order updatedOrder = orderRepository.save(existingOrder);
         return orderMapper.toDTO(updatedOrder);
     }

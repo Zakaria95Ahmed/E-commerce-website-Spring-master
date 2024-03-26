@@ -4,7 +4,7 @@ import com.shopping.freshcart.Models.DTOs.CategoryDTO;
 import com.shopping.freshcart.Models.Entity.Category;
 import com.shopping.freshcart.Models.Mappers.CategoryMapper;
 import com.shopping.freshcart.Repositories.CategoryRepository;
-import com.shopping.freshcart.Services.CategoryService;
+import com.shopping.freshcart.Services.Interfaces.CategoryService;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDTO updateCategory(Long id, CategoryDTO categoryDTO) {
         Category existingCategory = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(" Not-found Category id : "+ id));
-        categoryMapper.updateEntityFromDTO(categoryDTO, existingCategory);
+        categoryMapper.updateCategoryFromDTO(categoryDTO, existingCategory);
         Category updatedCategory = categoryRepository.save(existingCategory);
         return categoryMapper.toDTO(updatedCategory);
     }

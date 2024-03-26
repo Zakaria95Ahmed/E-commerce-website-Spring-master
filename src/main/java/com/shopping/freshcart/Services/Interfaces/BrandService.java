@@ -1,4 +1,4 @@
-package com.shopping.freshcart.Services;
+package com.shopping.freshcart.Services.Interfaces;
 
 import com.shopping.freshcart.Models.DTOs.BrandDTO;
 

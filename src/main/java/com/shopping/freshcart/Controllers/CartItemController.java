@@ -1,7 +1,7 @@
 package com.shopping.freshcart.Controllers;
 
 import com.shopping.freshcart.Models.DTOs.CartItemDTO;
-import com.shopping.freshcart.Services.CartItemService;
+import com.shopping.freshcart.Services.Interfaces.CartItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

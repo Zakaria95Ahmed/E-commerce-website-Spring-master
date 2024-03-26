@@ -1,4 +1,4 @@
-package com.shopping.freshcart.Models.DTOs;
+package com.shopping.freshcart.Security.UserAccount.Model.DTO;
 
 import lombok.*;
 
@@ -7,9 +7,10 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
+
     private Long id;
-    private String name;
+    private String username;
     private String email;
-    private String phone;
-    // Other fields if needed
+
+    // Constructors, getters, and setters
 }

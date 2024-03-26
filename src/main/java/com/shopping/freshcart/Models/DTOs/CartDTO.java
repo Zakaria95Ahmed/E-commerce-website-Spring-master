@@ -12,6 +12,6 @@ public class CartDTO {
     private Long id;
     private Long userId;
     private List<CartItemDTO> cartItems;
-    private Double totalCartPrice;
-    // Other fields if needed
+
+    // Constructors, getters, and setters
 }

@@ -8,25 +8,25 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 
 @Entity
-@Table(name = " category")@Setter
+@Table(name = "category")
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String slug;
-    private String image;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String description;
 
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 
-
-
+    // Constructors, getters, and setters
 }

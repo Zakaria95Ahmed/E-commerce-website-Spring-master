@@ -4,7 +4,7 @@ import com.shopping.freshcart.Models.DTOs.CartDTO;
 import com.shopping.freshcart.Models.Entity.Cart;
 import com.shopping.freshcart.Models.Mappers.CartMapper;
 import com.shopping.freshcart.Repositories.CartRepository;
-import com.shopping.freshcart.Services.CartService;
+import com.shopping.freshcart.Services.Interfaces.CartService;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -43,7 +43,7 @@ public class CartServiceImpl implements CartService {
     public CartDTO updateCart(Long id, CartDTO cartDTO) {
         Cart existingCart = cartRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not-found Cart id : "+ id));
-        cartMapper.updateEntityFromDTO(cartDTO, existingCart);
+        cartMapper.updateCartFromDTO(cartDTO, existingCart);
         Cart updatedCart = cartRepository.save(existingCart);
         return cartMapper.toDTO(updatedCart);
     }

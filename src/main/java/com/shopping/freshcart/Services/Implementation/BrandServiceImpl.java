@@ -4,7 +4,7 @@ import com.shopping.freshcart.Models.DTOs.BrandDTO;
 import com.shopping.freshcart.Models.Entity.Brand;
 import com.shopping.freshcart.Models.Mappers.BrandMapper;
 import com.shopping.freshcart.Repositories.BrandRepository;
-import com.shopping.freshcart.Services.BrandService;
+import com.shopping.freshcart.Services.Interfaces.BrandService;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -44,7 +44,7 @@ public class BrandServiceImpl implements BrandService {
     public BrandDTO updateBrand(Long id, BrandDTO brandDTO) {
         Brand existingBrand = brandRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Brand not found with id: " + id));
-        brandMapper.updateEntityFromDTO(brandDTO, existingBrand);
+        brandMapper.updateBrandFromDTO(brandDTO, existingBrand);
         Brand updatedBrand = brandRepository.save(existingBrand);
         return brandMapper.toDTO(updatedBrand);
     }

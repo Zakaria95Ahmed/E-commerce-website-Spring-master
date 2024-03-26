@@ -8,8 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 public class CartItemDTO {
     private Long id;
-    private Long productId;
     private Integer quantity;
-    private Double price;
-    // Other fields if needed
+    private Long productId;
+
+    // Constructors, getters, and setters
 }

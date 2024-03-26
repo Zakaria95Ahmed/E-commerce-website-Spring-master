@@ -53,11 +53,11 @@ public class OrderItemController {
         return ResponseEntity.ok(orderItems);
     }
 
-    @GetMapping("/order/{orderId}/total-price")
-    public ResponseEntity<Double> getTotalPriceForOrder(@PathVariable Long orderId) {
-        Double totalPrice = orderItemService.getTotalPriceForOrder(orderId);
-        return ResponseEntity.ok(totalPrice);
-    }
+//    @GetMapping("/order/{orderId}/total-price")
+//    public ResponseEntity<Double> getTotalPriceForOrder(@PathVariable Long orderId) {
+//        Double totalPrice = orderItemService.getTotalPriceForOrder(orderId);
+//        return ResponseEntity.ok(totalPrice);
+//    }
 
 
 

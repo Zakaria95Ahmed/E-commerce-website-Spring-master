@@ -10,17 +10,12 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
-public interface ProductMapper {
-    ProductMapper INSTANCE = Mappers.getMapper(ProductMapper.class);
 
+@Mapper(componentModel = "spring", uses = {CategoryMapper.class, BrandMapper.class})
+public interface ProductMapper {
     ProductDTO toDTO(Product product);
     Product toEntity(ProductDTO productDTO);
-
     List<ProductDTO> toDTOList(List<Product> products);
     List<Product> toEntityList(List<ProductDTO> productDTOs);
-
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEntityFromDTO(ProductDTO productDTO, @MappingTarget Product product);
+    void updateProductFromDTO(ProductDTO productDTO, @MappingTarget Product product);
 }
-

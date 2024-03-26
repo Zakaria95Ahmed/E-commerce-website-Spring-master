@@ -2,7 +2,9 @@ package com.shopping.freshcart.Models.DTOs;
 
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -10,13 +12,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class OrderDTO {
     private Long id;
+    private LocalDateTime orderDate;
+    private String status;
+    private BigDecimal totalAmount;
     private Long userId;
-    private Double totalOrderPrice;
-    private Double taxPrice;
-    private Double shippingPrice;
-    private String paymentMethodType;
-    private Boolean isPaid;
-    private LocalDateTime paidAt;
-    private Boolean isDelivered;
-    // Other fields if needed
+    private List<OrderItemDTO> orderItems;
+
+    // Constructors, getters, and setters
 }

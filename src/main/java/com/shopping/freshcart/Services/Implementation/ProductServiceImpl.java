@@ -4,7 +4,7 @@ import com.shopping.freshcart.Models.DTOs.ProductDTO;
 import com.shopping.freshcart.Models.Entity.Product;
 import com.shopping.freshcart.Models.Mappers.ProductMapper;
 import com.shopping.freshcart.Repositories.ProductRepository;
-import com.shopping.freshcart.Services.ProductService;
+import com.shopping.freshcart.Services.Interfaces.ProductService;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 import java.util.List;
@@ -25,6 +25,8 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toDTOList(products);
     }
 
+
+
     @Override
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
@@ -43,15 +45,15 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
         Product existingProduct = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not-found Product id: "+ id));
-        productMapper.updateEntityFromDTO(productDTO, existingProduct);
+        productMapper.updateProductFromDTO(productDTO, existingProduct);
         Product updatedProduct = productRepository.save(existingProduct);
         return productMapper.toDTO(updatedProduct);
     }
-
     @Override
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not-found Product id: "+ id));
         productRepository.delete(product);
     }
+
 }

@@ -4,7 +4,7 @@ import com.shopping.freshcart.Models.DTOs.OrderItemDTO;
 import com.shopping.freshcart.Models.Entity.OrderItem;
 import com.shopping.freshcart.Models.Mappers.OrderItemMapper;
 import com.shopping.freshcart.Repositories.OrderItemRepository;
-import com.shopping.freshcart.Services.OrderItemService;
+import com.shopping.freshcart.Services.Interfaces.OrderItemService;
 import org.springframework.stereotype.Service;
 import jakarta.persistence.EntityNotFoundException;
 
@@ -46,7 +46,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     public OrderItemDTO updateOrderItem(Long id, OrderItemDTO orderItemDTO) {
         OrderItem existingOrderItem = orderItemRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Not-found OrderItem id: "+ id));
-        orderItemMapper.updateEntityFromDTO(orderItemDTO, existingOrderItem);
+        orderItemMapper.updateOrderItemFromDTO(orderItemDTO, existingOrderItem);
         OrderItem updatedOrderItem = orderItemRepository.save(existingOrderItem);
         return orderItemMapper.toDTO(updatedOrderItem);
     }
@@ -64,16 +64,15 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
 
-    public Double getTotalPriceForOrder(Long orderId) {
-        List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
-        return orderItems.stream()
-                .mapToDouble(orderItem -> orderItem.getQuantity() * orderItem.getPrice())
-                .sum();
-    }
+//    public Double getTotalPriceForOrder(Long orderId) {
+//        List<OrderItem> orderItems = orderItemRepository.findByOrderId(orderId);
+//        return orderItems.stream()
+//                .mapToDouble(orderItem -> orderItem.getQuantity() * orderItem.getPrice())
+//                .sum();
+//    }
 
 
 
 }
-
 
 

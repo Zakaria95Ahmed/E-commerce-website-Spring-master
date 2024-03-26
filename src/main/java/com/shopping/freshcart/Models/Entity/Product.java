@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Entity
 @Table(name = "products")
@@ -17,29 +17,21 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String slug;
+    private String name;
     private String description;
-    private Integer quantity;
-    private Double price;
-    private String imageCover;
-    @ElementCollection
-    private List<String> images;
-    @ManyToOne
-    private Category category;
-    @ManyToOne
-    private Brand brand;
-    @ManyToMany
-    private List<SubCategory> subcategories;
-    private Double priceAfterDiscount;
-    private Double ratingsAverage;
-    private Integer ratingsQuantity;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private Integer sold;
+    private BigDecimal price;
+    private String image;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
+    // Constructors, getters, and setters
 }
