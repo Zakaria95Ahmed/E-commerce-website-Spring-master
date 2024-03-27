@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +29,8 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
 
     ////-------Best-Practice------////
     @Override
@@ -47,12 +49,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     }
 
     // Add any additional methods for user-related operations
+
     public void resetPassword(String email) {
         Optional<User> userOptional = userRepository.findByEmail(email);
         userOptional.ifPresentOrElse(
                 user -> {
                     String password = generatePassword();
-                    String encryptedPassword = bCryptPasswordEncoder.encode(password);
+                    String encryptedPassword = passwordEncoder.encode(password);
                     user.setPassword(encryptedPassword);
                     userRepository.save(user);
                     log.info("New user password: " + password);
@@ -63,40 +66,29 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         );
     }
 
-    ////-------Best-Practice------////
-    //// ----- Update-Password -----////
     public void changePassword(String email, String newPassword) {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            String encryptedPassword = encryptPassword(newPassword);
+            String encryptedPassword = passwordEncoder.encode(newPassword);
             user.setPassword(encryptedPassword);
             try {
                 userRepository.save(user);
-                // Send password changed notification if needed
-                // sendPasswordChangedNotification(user.getFirstName(), newPassword, user.getEmail());
             } catch (Exception e) {
-                // Handle exception
                 log.error("Error updating password for user: " + email, e);
             }
         } else {
-            // Handle user not found
             log.error("User not found with email: " + email);
         }
     }
 
-    private String encryptPassword(String password) {
-        return bCryptPasswordEncoder.encode(password);
-    }
 
 
     private UserRolesAuthentications getRoleEnumName(String role) {
         return UserRolesAuthentications.valueOf(role.toUpperCase());
     }
 
-    private String encodePassword(String password) {
-        return bCryptPasswordEncoder.encode(password);
-    }
+
 
     private String generatePassword() {
         return RandomStringUtils.randomAlphanumeric(10);

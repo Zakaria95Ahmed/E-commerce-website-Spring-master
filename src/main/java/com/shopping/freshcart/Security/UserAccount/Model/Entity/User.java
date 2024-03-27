@@ -3,6 +3,7 @@ package com.shopping.freshcart.Security.UserAccount.Model.Entity;
 
 
 import com.shopping.freshcart.Models.Entity.Order;
+import com.shopping.freshcart.Security.Permissions.UserRolesAuthentications;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,7 +48,7 @@ public class User {
     private List<Order> orders;
 
     @Enumerated(EnumType.STRING)
-    private String role;
+    private UserRolesAuthentications role;
 
     @Lob
     @Convert(converter = StringArrayConverter.class)

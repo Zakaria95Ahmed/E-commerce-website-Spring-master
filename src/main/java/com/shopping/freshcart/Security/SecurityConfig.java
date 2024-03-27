@@ -1,4 +1,4 @@
-package com.shopping.freshcart.Security.UserAccount;
+package com.shopping.freshcart.Security;
 
 import com.shopping.freshcart.Security.JWT.Authentication;
 import com.shopping.freshcart.Security.JWT.JwtAuthorizationFilter;
@@ -89,5 +89,7 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 
 }
